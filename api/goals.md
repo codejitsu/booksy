@@ -27,29 +27,29 @@
 | Users       | | *Add author to item* | Collection (manage collection), item ID, author ID |  Item with author | Add author to item | POST /collections/1acdbf6f-05ac-45a7-9ddd-6f392e06079a/books,e-books,videos/ee09dc1b-3b8c-467b-a4d0-b985f5622bc1/authors
 | Users       | | *Remove author from item* | Collection (manage collection), item ID, author ID |  Item without author | Remove author from item | DELETE /collections/1acdbf6f-05ac-45a7-9ddd-6f392e06079a/books,e-books,videos/ee09dc1b-3b8c-467b-a4d0-b985f5622bc1/authors/ee09dc1b-3b8c-467b-a4d0-b985f5622bc1
 | Users       | | *List authors for item* | Collection (manage collection), item ID |  List of authors | List of authors | GET /collections/1acdbf6f-05ac-45a7-9ddd-6f392e06079a/books,e-books,videos/ee09dc1b-3b8c-467b-a4d0-b985f5622bc1/authors
-| Users       | Explore collection | Filter by tags | Collection (manage collection), tag names (provided by user) |  List of materials | Filter by tags | GET /collections/1acdbf6f-05ac-45a7-9ddd-6f392e06079a/books,e-books,videos/?tags=tag1,tag2
-| Users       | | Filter by status | Collection (manage collection), status (provided by user) |  List of materials | Filter by status | GET /collections/1acdbf6f-05ac-45a7-9ddd-6f392e06079a/books,e-books,videos/?status=borrowed
-| Users       | | Get materials by type | Collection (manage collection) |  List of materials | Get materials by type | GET /collections/1acdbf6f-05ac-45a7-9ddd-6f392e06079a/books,e-books,videos/
-| Users       | | Get all items | Collection (manage collection) |  List of materials | Get all materials | GET /collections/1acdbf6f-05ac-45a7-9ddd-6f392e06079a/all/
-| Users       | | Look up items in collection |  Collection (manage collection), free query (provided by user) |  List of materials across in collection | Look up items in collection | GET /collections/1acdbf6f-05ac-45a7-9ddd-6f392e06079a/books,e-books,videos,all?free-query=text
-| Users       | Search items | Look up items | Free query (provided by user) |  List of materials across all collections | Look up items | GET /collections/all/books,e-books,videos,all?free-query=text
-| Users       | | Look up items by author | Author ID (provided by user) |  List of materials across all collections | Search items by author | GET /collections/all/books,e-books,videos,all/authors/1acdbf6f-05ac-45a7-9ddd-6f392e06079a
-| Users       | | Look up items by tag | tag ID (provided by user) |  List of materials across all collections | Search items by tag | GET /collections/all/books,e-books,videos,all/tags/1acdbf6f-05ac-45a7-9ddd-6f392e06079a
-| Users       | Find items on external service | External search with free query | Free query (provided by user), service name (provided by user) |  Matching materials found on external service | Find items on external service | GET /services/goodreads/?free-query=text
-| Users       | Read item from external service by id | External search by ID | ID (provided by user), service name (provided by user) |  Matching material found on external service | Read item from external service | GET /services/goodreads/3305fa5a-f70a-4dd2-aebc-02b8b9a82bea
-| Users       | Manage quotes | Add quote | Collection, item, quote | Created quote | Add quote from item | POST /collections/1acdbf6f-05ac-45a7-9ddd-6f392e06079a/books,e-books,videos/ee09dc1b-3b8c-467b-a4d0-b985f5622bc1/quotes
-| Users       |  | Get quotes | Collection, item | List of quotes | List quotes | GET /collections/1acdbf6f-05ac-45a7-9ddd-6f392e06079a/books,e-books,videos/ee09dc1b-3b8c-467b-a4d0-b985f5622bc1/quotes
-| Users       |  | Delete quotes | Collection, item, quote ID | Deleted quote | Delete quote | DELETE /collections/1acdbf6f-05ac-45a7-9ddd-6f392e06079a/books,e-books,videos/ee09dc1b-3b8c-467b-a4d0-b985f5622bc1/quotes/ee09dc1b-3b8c-467b-a4d0-b985f5622bc1
-| Users       | Manage borrowed items | Borrow item | Collection, item, free text for whom the item borrowed to | Borrowed item | Borrow item | PATCH /collections/1acdbf6f-05ac-45a7-9ddd-6f392e06079a/books/ee09dc1b-3b8c-467b-a4d0-b985f5622bc1
-| Users       |  | Return borrowed item | Collection, item | Returned item | Return item | PATCH /collections/1acdbf6f-05ac-45a7-9ddd-6f392e06079a/books/ee09dc1b-3b8c-467b-a4d0-b985f5622bc1
-| Users       | Manage authors | Add new author | Author data (provided by user) | New author | Add new author | POST /authors
-| Users       | | Get author | Author ID (provided by user) | Author details | Get author | GET /authors/1acdbf6f-05ac-45a7-9ddd-6f392e06079a
-| Users       | | Delete author | Author ID (provided by user) | Deleted author | Delete author | DELETE /authors/1acdbf6f-05ac-45a7-9ddd-6f392e06079a
-| Users       | | Search authors | Free query (provided by user) | List of matching authors | Search authors | GET /authors/?free-query=text
-| Users       | Manage tags | Add new tag | Tag name (provided by user) | New tag | Add new tag | POST /tags
-| Users       | | Get tag | Tag ID (provided by user) | Tag details | Get tag | GET /tags/1acdbf6f-05ac-45a7-9ddd-6f392e06079a
-| Users       | | Delete tag | Tag ID (provided by user) | Deleted tag | Delete tag | DELETE /tags/1acdbf6f-05ac-45a7-9ddd-6f392e06079a
-| Users       | | Search tags | Free query (provided by user) | List of matching tags | Search tags | GET /tags/?free-query=text
+| Users       | **Explore collection** | *Filter by tags* | Collection (manage collection), tag names (provided by user) |  List of materials | Filter by tags | GET /collections/1acdbf6f-05ac-45a7-9ddd-6f392e06079a/books,e-books,videos,all/?tags=tag1,tag2
+| Users       | | *Filter by status* | Collection (manage collection), status (provided by user) |  List of materials | Filter by status | GET /collections/1acdbf6f-05ac-45a7-9ddd-6f392e06079a/books,e-books,videos,all/?status=borrowed
+| Users       | | *Get materials by type* | Collection (manage collection), type (provided by user) |  List of materials | Get materials by type | GET /collections/1acdbf6f-05ac-45a7-9ddd-6f392e06079a/books,e-books,videos,all/
+| Users       | | *Get all items* | Collection (manage collection) |  List of materials | Get all materials | GET /collections/1acdbf6f-05ac-45a7-9ddd-6f392e06079a/all/
+| Users       | | *Look up items in collection* |  Collection (manage collection), free query (provided by user) |  List of materials across in collection | Look up items in collection | GET /collections/1acdbf6f-05ac-45a7-9ddd-6f392e06079a/books,e-books,videos,all/?free-query=text
+| Users       | *Search items* | Look up items | Free query (provided by user) |  List of materials across all collections | Look up items | GET /collections/all/books,e-books,videos,all/?free-query=text
+| Users       | | *Look up items by author* | Author ID (provided by user) |  List of materials by author | List items by author | GET /authors/1acdbf6f-05ac-45a7-9ddd-6f392e06079a/books,e-books,videos,all/
+| Users       | | *Look up items by tag* | tag ID (provided by user) |  List of materials by type | Search items by tag | GET /tags/1acdbf6f-05ac-45a7-9ddd-6f392e06079a/books,e-books,videos,all/
+| Users       | *Find items on external service* | External search with free query | Free query (provided by user), service name (provided by user) |  Matching materials found on external service | Find items on external service | GET /services/google/?free-query=text
+| Users       | *Read item from external service by id* | External search by ID | ID (provided by user), service name (provided by user) |  Matching material found on external service | Read item from external service | GET /services/google/3305fa5a-f70a-4dd2-aebc-02b8b9a82bea
+| Users       | **Manage quotes** | *Add quote* | Collection, item, quote | Created quote | Add quote from item | POST /collections/1acdbf6f-05ac-45a7-9ddd-6f392e06079a/books,e-books,videos/ee09dc1b-3b8c-467b-a4d0-b985f5622bc1/quotes
+| Users       |  | *Get quotes* | Collection, item | List of quotes | List quotes | GET /collections/1acdbf6f-05ac-45a7-9ddd-6f392e06079a/books,e-books,videos/ee09dc1b-3b8c-467b-a4d0-b985f5622bc1/quotes
+| Users       |  | *Delete quotes* | Collection, item, quote ID | Deleted quote | Delete quote | DELETE /collections/1acdbf6f-05ac-45a7-9ddd-6f392e06079a/books,e-books,videos/ee09dc1b-3b8c-467b-a4d0-b985f5622bc1/quotes/ee09dc1b-3b8c-467b-a4d0-b985f5622bc1
+| Users       | **Manage borrowed items** | *Borrow item* | Collection, item, free text for whom the item borrowed to | Borrowed item | Borrow item | PATCH /collections/1acdbf6f-05ac-45a7-9ddd-6f392e06079a/books/ee09dc1b-3b8c-467b-a4d0-b985f5622bc1
+| Users       |  | *Return borrowed item* | Collection, item | Returned item | Return item | PATCH /collections/1acdbf6f-05ac-45a7-9ddd-6f392e06079a/books/ee09dc1b-3b8c-467b-a4d0-b985f5622bc1
+| Users       | **Manage authors** | *Add new author* | Author data (provided by user) | New author | Add new author | POST /authors
+| Users       | | *Get author* | Author ID (provided by user) | Author details | Get author | GET /authors/1acdbf6f-05ac-45a7-9ddd-6f392e06079a
+| Users       | | *Delete author* | Author ID (provided by user) | Deleted author | Delete author | DELETE /authors/1acdbf6f-05ac-45a7-9ddd-6f392e06079a
+| Users       | | *Search authors* | Free query (provided by user) | List of matching authors | Search authors | GET /authors/?free-query=text
+| Users       | **Manage tags** | Add new tag | Tag name (provided by user) | New tag | Add new tag | POST /tags
+| Users       | | *Get tag* | Tag ID (provided by user) | Tag details | Get tag | GET /tags/1acdbf6f-05ac-45a7-9ddd-6f392e06079a
+| Users       | | *Delete tag* | Tag ID (provided by user) | Deleted tag | Delete tag | DELETE /tags/1acdbf6f-05ac-45a7-9ddd-6f392e06079a
+| Users       | | *Search tags* | Free query (provided by user) | List of matching tags | Search tags | GET /tags/?free-query=text
 ### Assumptions
 * no authentication/authorization for time being
 * Material statuses:
