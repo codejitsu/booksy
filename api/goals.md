@@ -7,9 +7,9 @@
 | Users       |  | *Create collection* | Collection name |  New collection (provided by user) | Collection details || POST /collections
 | Users       |  | *Delete collection* | Collection id (provided by user) | Deleted collection details  | Delete collection || DELETE /collections/812ba8b7-60cb-41fd-8629-b73c60c0f01f
 | Users       |  | *Open collection* | Collection id (provided by user) | Collection details  | Open collection || GET /collections/812ba8b7-60cb-41fd-8629-b73c60c0f01f
-| Users       | **Register material in system**  | *Add book* | Book information  (Import from external service) |  Registered book | Register book in system || POST /books/
-| Users       |  | *Add e-book* | E-Book information  (Import from external service) |  Registered e-book | Register e-book in system || POST /e-books/
-| Users       |  | *Add video* | Video information  (Import from external service) |  Registered video | Register video in system || POST /videos/
+| Users       | **Register material in system**  | *Add book* | Book information  (Import from external service) |  Registered book | Register book in system |✅| POST /books/
+| Users       |  | *Add e-book* | E-Book information  (Import from external service) |  Registered e-book | Register e-book in system |✅| POST /e-books/
+| Users       |  | *Add video* | Video information  (Import from external service) |  Registered video | Register video in system |✅| POST /videos/
 | Users       | **Remove material from system**  | *Remove book* | Book ID (Internal search) |  Removed book | Remove book from system || DELETE /books/812ba8b7-60cb-41fd-8629-b73c60c0f01f
 | Users       |  | *Remove e-book* | E-Book ID (Internal search) |  Removed e-book | Remove e-book from system || DELETE /e-books/812ba8b7-60cb-41fd-8629-b73c60c0f01f
 | Users       |  | *Remove video* | Video ID (Internal search) |  Removed video | Remove video from system || DELETE /videos/812ba8b7-60cb-41fd-8629-b73c60c0f01f

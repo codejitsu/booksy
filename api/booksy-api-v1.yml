@@ -15,6 +15,14 @@ components:
       schema:
         type: string
 
+    videoId:
+      name: videoId
+      in: path
+      required: true
+      description: Video's Id (GUID)
+      schema:
+        type: string
+
   schemas:
     book:
       type: object    
@@ -147,6 +155,137 @@ components:
           description: Link to the book in the system
           example: http://www.booksy.com/api/v1/books/523d786d-7888-4ff1-9cc2-5efa37b2d6c7          
 
+    video:
+      type: object    
+      description: A video material
+      required:
+        - title
+        - description
+        - authors
+        - publisher
+        - publicationDate
+        - videoType
+        - language
+      properties:
+        reference:
+          type: string
+          description: Unique ID identifying a video
+          example: dfefaf3b-225c-4d09-85e3-c37a2cdbfeda
+        title:
+          type: string
+          description: Title of the video
+          example: 100 JavaScript Algorithm Challenges
+        description:
+          type: string
+          description: Video's description  
+          example: Technical interviews help recruiters filter great developers, or at least that is how the industry sees it. This course will help you understand what to expect in a technical interview round and how to prepare for it. 
+        authors:
+          type: array
+          items:
+            type: object
+            required:
+              - name
+            properties:
+              reference:
+                type: string
+                description: Author's ID
+                example: 2d6c3580-e547-40e8-bf01-d9e9da6596ab
+              name:  
+                type: string
+                description: Author's name
+                example: Dylan Israel
+        publisher:
+          type: object
+          required:
+            - name
+          properties:
+            reference:
+              type: string
+              description: Publisher's ID
+              example: 2d6c3580-e547-40e8-bf01-d9e9da6596ab
+            name:
+              type: string
+              description: Publisher's name
+              example: Packt
+        publicationDate:
+          type: string
+          description: Publication date
+          example: "2021-02-10"
+        registrationDate:
+          type: string
+          description: Video's registration date
+          example: "2021-03-30"
+        industryIdentifiers:
+          type: array
+          items:
+            type: object
+            description: List of references
+            required:
+              - type
+              - identifier
+            properties:  
+              type:
+                type: string
+                description: The type of identifier (ISBN_10 or ISBN_13)  
+                example: ISBN_10
+              identifier:
+                type: string
+                description: Video identifier value  
+                example: 0747532699
+        duration:
+          type: string
+          description: Duration of the video in ISO 8601 format
+          example: P0Y0M0DT10H30M5S
+        price:
+          type: object
+          required:
+            - amount
+            - currency
+          properties:
+            amount:
+              type: number
+              description: Video's price
+              example: 101.99
+            currency:
+              type: string
+              description: Currency code
+              example: EUR            
+        videoType:
+          type: string
+          description: Type of the video (course)
+          example: course
+        tags:
+          type: array
+          items:
+            type: string
+            description: Tag name
+            example: tutorial
+        images:
+          type: array
+          items:
+            type: object
+            description: Video's image links
+            required:
+              - type
+              - url
+            properties:
+              type:
+                type: string
+                description: Type of image (smallThumbnail, thumbnail, small, medium, large, extraLarge)
+                example: extraLarge
+              url:
+                type: string
+                description: URL to the image
+                example: "https://static.packt-cdn.com/products/9781800568556/cover/smaller"
+        language:
+          type: string
+          description: Video's language
+          example: en
+        self:
+          type: string
+          description: Link to the video in the system
+          example: http://www.booksy.com/api/v1/videos/523d786d-7888-4ff1-9cc2-5efa37b2d6c7          
+
 paths:
   /books/:    
     post:
@@ -180,3 +319,36 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/book"
+
+  /videos/:    
+    post:
+      tags:
+        - "videos"
+      description: Register a new video in library
+      requestBody:
+        description: Video's information
+        content: 
+          application/json:
+            schema:
+              $ref: "#/components/schemas/video"
+      responses:
+        '201':
+          description: Video has been registered successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/video"
+
+  /videos/{videoId}:
+    get:
+      tags:
+        - "videos"
+      parameters:
+        - $ref:  "#/components/parameters/videoId"
+      responses:
+        '200':
+          description: Video has been found in the library
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/video"
