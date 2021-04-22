@@ -1,12 +1,182 @@
 openapi: '3.0.2'
 info:
-  title: API Title
+  title: Booksy API
+  description: The API for home library management - adding books, video courses, e-books to collections.
   version: '1.0'
 servers:
   - url: https://api.server.test/v1
+components:
+  parameters:
+    bookId:
+      name: bookId
+      in: path
+      required: true
+      description: Book's Id (GUID)
+      schema:
+        type: string
+
+  schemas:
+    book:
+      type: object    
+      description: A book
+      required:
+        - title
+        - description
+        - authors
+        - publisher
+        - publicationDate
+        - printType
+        - language
+      properties:
+        reference:
+          type: string
+          description: Unique ID identifying a book
+          example: dfefaf3b-225c-4d09-85e3-c37a2cdbfeda
+        title:
+          type: string
+          description: Title of the book
+          example: Harry Potter and the Philosopher's Stone
+        description:
+          type: string
+          description: Book's description  
+          example: Harry Potter and the Philosopher's Stone is a fantasy novel written by British author J. K. Rowling.
+        authors:
+          type: array
+          items:
+            type: object
+            required:
+              - name
+            properties:
+              reference:
+                type: string
+                description: Author's ID
+                example: 2d6c3580-e547-40e8-bf01-d9e9da6596ab
+              name:  
+                type: string
+                description: Author's name
+                example: J. K. Rowling
+        publisher:
+          type: object
+          required:
+            - name
+          properties:
+            reference:
+              type: string
+              description: Publisher's ID
+              example: 2d6c3580-e547-40e8-bf01-d9e9da6596ab
+            name:
+              type: string
+              description: Publisher's name
+              example: Bloomsbury
+        publicationDate:
+          type: string
+          description: Publication date
+          example: "1997-06-26"
+        registrationDate:
+          type: string
+          description: Book's registration date
+          example: "2021-03-30"
+        industryIdentifiers:
+          type: array
+          items:
+            type: object
+            description: List of references
+            required:
+              - type
+              - identifier
+            properties:  
+              type:
+                type: string
+                description: The type of identifier (ISBN_10 or ISBN_13)  
+                example: ISBN_10
+              identifier:
+                type: string
+                description: Book identifier value  
+                example: 0747532699
+        pageCount:
+          type: number
+          description: Number of pages in the book
+          example: 1200
+        price:
+          type: object
+          required:
+            - amount
+            - currency
+          properties:
+            amount:
+              type: number
+              description: Book's price
+              example: 44.5
+            currency:
+              type: string
+              description: Currency code
+              example: EUR            
+        printType:
+          type: string
+          description: Type of the book (book, magazine, e-book)
+          example: e-book
+        tags:
+          type: array
+          items:
+            type: string
+            description: Tag name
+            example: fantasy
+        images:
+          type: array
+          items:
+            type: object
+            description: Book's image links
+            required:
+              - type
+              - url
+            properties:
+              type:
+                type: string
+                description: Type of image (smallThumbnail, thumbnail, small, medium, large, extraLarge)
+                example: extraLarge
+              url:
+                type: string
+                description: URL to the image
+                example: "https://books.google.com/books?id=zyTCAlFPjgYC&printsec=frontcover&img=1&zoom=2&edge=curl&source=gbs_api"
+        language:
+          type: string
+          description: Book's language
+          example: de
+        self:
+          type: string
+          description: Link to the book in the system
+          example: http://www.booksy.com/api/v1/books/523d786d-7888-4ff1-9cc2-5efa37b2d6c7          
+
 paths:
-  /test:
+  /books/:    
+    post:
+      tags:
+        - "books"
+      description: Register a new book in library
+      requestBody:
+        description: Book's information
+        content: 
+          application/json:
+            schema:
+              $ref: "#/components/schemas/book"
+      responses:
+        '201':
+          description: Book has been registered successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/book"
+
+  /books/{bookId}:
     get:
+      tags:
+        - "books"
+      parameters:
+        - $ref:  "#/components/parameters/bookId"
       responses:
         '200':
-          description: OK
+          description: Book has been found in the library
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/book"
