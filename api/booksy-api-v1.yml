@@ -155,6 +155,26 @@ components:
           description: Link to the book in the system
           example: http://www.booksy.com/api/v1/books/523d786d-7888-4ff1-9cc2-5efa37b2d6c7          
 
+    book-list:
+      type: object
+      description: Container of books
+      required:
+        - items
+        - total
+        - next-token
+      properties:          
+        items:
+          type: array
+          description: current page of books
+          items:
+            $ref: "#/components/schemas/book"
+        total:
+          type: integer
+          description: the total number of books in resultset
+        next-token:
+          type: string
+          description: pagination token
+
     video:
       type: object    
       description: A video material
@@ -286,6 +306,26 @@ components:
           description: Link to the video in the system
           example: http://www.booksy.com/api/v1/videos/523d786d-7888-4ff1-9cc2-5efa37b2d6c7          
 
+    video-list:
+      type: object
+      description: Container of videos
+      required:
+        - items
+        - total
+        - next-token
+      properties:          
+        items:
+          type: array
+          description: current page of videos
+          items:
+            $ref: "#/components/schemas/video"
+        total:
+          type: integer
+          description: the total number of videos in resultset
+        next-token:
+          type: string
+          description: pagination token
+
 paths:
   /books/:    
     post:
@@ -305,6 +345,28 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/book"
+    get:
+      tags:
+        - "books"
+      parameters:
+        - in: query
+          name: free-query
+          schema:
+            type: string          
+        - in: query
+          name: pagination-token
+          schema:
+            type: string
+            description: optional pagination token
+
+      description: Search books with free text parameter
+      responses:
+        '200':
+          description: List of books or empty list if nothing found for the query parameter
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/book-list"
 
   /books/{bookId}:
     get:
@@ -349,6 +411,29 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/video"
+
+    get:
+      tags:
+        - "videos"
+      parameters:
+        - in: query
+          name: free-query
+          schema:
+            type: string          
+        - in: query
+          name: pagination-token
+          schema:
+            type: string
+            description: optional pagination token
+
+      description: Search videos with free text parameter
+      responses:
+        '200':
+          description: List of videos or empty list if nothing found for the query parameter
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/video-list"
 
   /videos/{videoId}:
     get:

@@ -13,7 +13,7 @@
 | Users       | **Remove material from system**  | *Remove book* | Book ID (Internal search) |  Removed book | Remove book from system |✅| DELETE /books/812ba8b7-60cb-41fd-8629-b73c60c0f01f
 | Users       |  | *Remove e-book* | E-Book ID (Internal search) |  Removed e-book | Remove e-book from system |✅| DELETE /books/812ba8b7-60cb-41fd-8629-b73c60c0f01f
 | Users       |  | *Remove video* | Video ID (Internal search) |  Removed video | Remove video from system |✅| DELETE /videos/812ba8b7-60cb-41fd-8629-b73c60c0f01f
-| Users       | **Add material reference to collection**  | *Add book to given collection* | Collection (manage collection), book information  (provided by user) ||  Registered book | Register book in collection | POST /collections/1acdbf6f-05ac-45a7-9ddd-6f392e06079a/books
+| Users       | **Add material reference to collection**  | *Add book to given collection* | Collection (manage collection), book information  (provided by user) | Registered book | Register book in collection || POST /collections/1acdbf6f-05ac-45a7-9ddd-6f392e06079a/books
 | Users       |  | *Add e-book to given collection* | Collection (manage collection), e-book information  (provided by user) |  Registered e-book | Register e-book in collection || POST /collections/1acdbf6f-05ac-45a7-9ddd-6f392e06079a/e-books
 | Users       |  | *Add video to given collection* | Collection (manage collection), video information  (provided by user) |  Registered video | Register video in collection || POST /collections/1acdbf6f-05ac-45a7-9ddd-6f392e06079a/videos
 | Users       |  | *Remove item from given collection* | Collection (manage collection), item ID (provided by user) |  Deleted item | Delete item from collection || DELETE /collections/1acdbf6f-05ac-45a7-9ddd-6f392e06079a/books,e-books,videos/ee09dc1b-3b8c-467b-a4d0-b985f5622bc1
@@ -38,7 +38,7 @@
 | Users       | | *Get materials by type* | Collection (manage collection), type (provided by user) |  List of materials | Get materials by type || GET /collections/1acdbf6f-05ac-45a7-9ddd-6f392e06079a/books,e-books,videos,all/
 | Users       | | *Get all items* | Collection (manage collection) |  List of materials | Get all materials || GET /collections/1acdbf6f-05ac-45a7-9ddd-6f392e06079a/all/
 | Users       | | *Look up items in collection* |  Collection (manage collection), free query (provided by user) |  List of materials across in collection | Look up items in collection || GET /collections/1acdbf6f-05ac-45a7-9ddd-6f392e06079a/books,e-books,videos,all/?free-query=text
-| Users       | **Search items** | *Look up items* | Free query (provided by user) |  List of materials across all materials | Look up items || GET /books,videos/?free-query=text
+| Users       | **Search items** | *Look up items* | Free query (provided by user) |  List of materials across all materials | Look up items |✅| GET /books,videos/?free-query=text
 | Users       | | *Look up items by author* | Author ID (provided by user) |  List of materials by author | List items by author || GET /books,videos/authors/1acdbf6f-05ac-45a7-9ddd-6f392e06079a/
 | Users       | | *Look up items by tag* | tag ID (provided by user) |  List of materials by type | Search items by tag || GET /books,videos/tags/1acdbf6f-05ac-45a7-9ddd-6f392e06079a
 | Users       | **Import materials** | *External search with free query* | Free query (provided by user), service name (provided by user) |  Matching materials found on external service | Find items on external service || GET /services/google/?free-query=text
