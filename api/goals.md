@@ -39,7 +39,7 @@
 | Users       | | *Get all items* | Collection (manage collection) |  List of materials | Get all materials || GET /collections/1acdbf6f-05ac-45a7-9ddd-6f392e06079a/all/
 | Users       | | *Look up items in collection* |  Collection (manage collection), free query (provided by user) |  List of materials across in collection | Look up items in collection || GET /collections/1acdbf6f-05ac-45a7-9ddd-6f392e06079a/books,e-books,videos,all/?free-query=text
 | Users       | **Search items** | *Look up items* | Free query (provided by user) |  List of materials across all materials | Look up items |✅| GET /books,videos/?free-query=text
-| Users       | | *Look up items by author* | Author ID (provided by user) |  List of materials by author | List items by author || GET /books,videos/authors/1acdbf6f-05ac-45a7-9ddd-6f392e06079a/
+| Users       | | *Look up items by author* | Author ID (provided by user) |  List of materials by author | List items by author |✅| GET /books,videos/authors/1acdbf6f-05ac-45a7-9ddd-6f392e06079a/
 | Users       | | *Look up items by tag* | tag ID (provided by user) |  List of materials by type | Search items by tag || GET /books,videos/tags/1acdbf6f-05ac-45a7-9ddd-6f392e06079a
 | Users       | **Import materials** | *External search with free query* | Free query (provided by user), service name (provided by user) |  Matching materials found on external service | Find items on external service || GET /services/google/?free-query=text
 | Users       | | External retrieval by ID | ID (provided by user), service name (provided by user) |  Matching material found on external service | Read item from external service || GET /services/google/3305fa5a-f70a-4dd2-aebc-02b8b9a82bea

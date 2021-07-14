@@ -23,6 +23,14 @@ components:
       schema:
         type: string
 
+    authorId:
+      name: authorId
+      in: path
+      required: true
+      description: Author's Id (GUID)
+      schema:
+        type: string
+
   schemas:
     book:
       type: object    
@@ -393,6 +401,26 @@ paths:
         '404':
           description: Given book does not exist in the system
 
+  /books/authors/{authorId}:
+    get:
+      tags:
+        - "books"
+      parameters:
+        - $ref:  "#/components/parameters/authorId"
+        - in: query
+          name: pagination-token
+          schema:
+            type: string
+            description: optional pagination token
+
+      responses:
+        '200':
+          description: List of books found for the author
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/book-list"
+
   /videos/:    
     post:
       tags:
@@ -459,3 +487,23 @@ paths:
 
         '404':
           description: Given video does not exist in the system
+
+  /videos/authors/{authorId}:
+    get:
+      tags:
+        - "videos"
+      parameters:
+        - $ref:  "#/components/parameters/authorId"
+        - in: query
+          name: pagination-token
+          schema:
+            type: string
+            description: optional pagination token
+
+      responses:
+        '200':
+          description: List of videos found for the author
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/video-list"
