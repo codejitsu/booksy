@@ -342,6 +342,46 @@ components:
           type: string
           description: pagination token
 
+    author:
+      type: object    
+      description: An author
+      required:
+        - firstName
+        - secondName
+      properties:
+        firstName:
+          type: string
+          description: First name
+          example: Donald
+        secondName:
+          type: string
+          description: Second name
+          example: Knuth
+        id:
+          type: string
+          description: Primary key
+          example: GUID
+
+    author-list:
+      type: object
+      description: Container of authors
+      required:
+        - items
+        - total
+        - next-token
+      properties:          
+        items:
+          type: array
+          description: current page of authors
+          items:
+            $ref: "#/components/schemas/author"
+        total:
+          type: integer
+          description: the total number of authors in resultset
+        next-token:
+          type: string
+          description: pagination token
+
 paths:
   /books/:    
     post:
@@ -555,3 +595,69 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/video-list"
+  
+  /authors/:    
+    post:
+      tags:
+        - "authors"
+      description: Register a new author
+      requestBody:
+        description: Author's information
+        content: 
+          application/json:
+            schema:
+              $ref: "#/components/schemas/author"
+      responses:
+        '201':
+          description: Author has been added successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/author"
+    get:
+      tags:
+        - "authors"
+      parameters:
+        - in: query
+          name: free-query
+          schema:
+            type: string          
+        - in: query
+          name: pagination-token
+          schema:
+            type: string
+            description: optional pagination token
+
+      description: Search authors with free text parameter
+      responses:
+        '200':
+          description: List of authors or empty list if nothing found for the query parameter
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/author-list"
+
+  /authors/{authorId}:
+    get:
+      tags:
+        - "authors"
+      parameters:
+        - $ref:  "#/components/parameters/authorId"
+      responses:
+        '200':
+          description: Author has been found in the system
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/author"
+    delete:
+      tags:
+        - "authors"
+      parameters:
+        - $ref:  "#/components/parameters/authorId"
+      responses:
+        '200':
+          description: Author has been successfully deleted
+
+        '404':
+          description: Given author does not exist in the system

@@ -48,10 +48,10 @@
 | Users       |  | *Delete quotes* | Collection, item, quote ID | Deleted quote | Delete quote || DELETE /collections/1acdbf6f-05ac-45a7-9ddd-6f392e06079a/books,e-books,videos/ee09dc1b-3b8c-467b-a4d0-b985f5622bc1/quotes/ee09dc1b-3b8c-467b-a4d0-b985f5622bc1
 | Users       | **Manage borrowed items** | *Borrow item* | Collection, item, free text for whom the item borrowed to | Borrowed item | Borrow item || PATCH /collections/1acdbf6f-05ac-45a7-9ddd-6f392e06079a/books/ee09dc1b-3b8c-467b-a4d0-b985f5622bc1
 | Users       |  | *Return borrowed item* | Collection, item | Returned item | Return item || PATCH /collections/1acdbf6f-05ac-45a7-9ddd-6f392e06079a/books/ee09dc1b-3b8c-467b-a4d0-b985f5622bc1
-| Users       | **Manage authors** | *Add new author* | Author data (provided by user) | New author | Add new author || POST /authors
-| Users       | | *Get author* | Author ID (provided by user) | Author details | Get author || GET /authors/1acdbf6f-05ac-45a7-9ddd-6f392e06079a
-| Users       | | *Delete author* | Author ID (provided by user) | Deleted author | Delete author || DELETE /authors/1acdbf6f-05ac-45a7-9ddd-6f392e06079a
-| Users       | | *Search authors* | Free query (provided by user) | List of matching authors | Search authors || GET /authors/?free-query=text
+| Users       | **Manage authors** | *Add new author* | Author data (provided by user) | New author | Add new author |✅| POST /authors
+| Users       | | *Get author* | Author ID (provided by user) | Author details | Get author |✅| GET /authors/1acdbf6f-05ac-45a7-9ddd-6f392e06079a
+| Users       | | *Delete author* | Author ID (provided by user) | Deleted author | Delete author |✅| DELETE /authors/1acdbf6f-05ac-45a7-9ddd-6f392e06079a
+| Users       | | *Search authors* | Free query (provided by user) | List of matching authors | Search authors |✅| GET /authors/?free-query=text
 | Users       | **Manage tags** | Add new tag | Tag name (provided by user) | New tag | Add new tag || POST /tags
 | Users       | | *Get tag* | Tag ID (provided by user) | Tag details | Get tag || GET /tags/1acdbf6f-05ac-45a7-9ddd-6f392e06079a
 | Users       | | *Delete tag* | Tag ID (provided by user) | Deleted tag | Delete tag || DELETE /tags/1acdbf6f-05ac-45a7-9ddd-6f392e06079a
