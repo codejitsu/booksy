@@ -31,6 +31,14 @@ components:
       schema:
         type: string
 
+    tagId:
+      name: tagId
+      in: path
+      required: true
+      description: Tag's Id (GUID)
+      schema:
+        type: string
+
   schemas:
     book:
       type: object    
@@ -421,6 +429,26 @@ paths:
               schema:
                 $ref: "#/components/schemas/book-list"
 
+  /books/tags/{tagId}:
+    get:
+      tags:
+        - "books"
+      parameters:
+        - $ref:  "#/components/parameters/tagId"
+        - in: query
+          name: pagination-token
+          schema:
+            type: string
+            description: optional pagination token
+
+      responses:
+        '200':
+          description: List of books found for the tag
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/book-list"
+
   /videos/:    
     post:
       tags:
@@ -503,6 +531,26 @@ paths:
       responses:
         '200':
           description: List of videos found for the author
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/video-list"
+
+  /videos/tags/{tagId}:
+    get:
+      tags:
+        - "videos"
+      parameters:
+        - $ref:  "#/components/parameters/tagId"
+        - in: query
+          name: pagination-token
+          schema:
+            type: string
+            description: optional pagination token
+
+      responses:
+        '200':
+          description: List of videos found for the tag
           content:
             application/json:
               schema:
