@@ -382,6 +382,41 @@ components:
           type: string
           description: pagination token
 
+    tag:
+      type: object    
+      description: A tag
+      required:
+        - name
+      properties:
+        name:
+          type: string
+          description: name of the tag
+          example: algorithms
+        id:
+          type: string
+          description: Primary key
+          example: GUID
+
+    tag-list:
+      type: object
+      description: Container of tags
+      required:
+        - items
+        - total
+        - next-token
+      properties:          
+        items:
+          type: array
+          description: current page of tags
+          items:
+            $ref: "#/components/schemas/tag"
+        total:
+          type: integer
+          description: the total number of tags in resultset
+        next-token:
+          type: string
+          description: pagination token
+
 paths:
   /books/:    
     post:
@@ -661,3 +696,69 @@ paths:
 
         '404':
           description: Given author does not exist in the system
+
+  /tags/:    
+    post:
+      tags:
+        - "tags"
+      description: Register a new tag
+      requestBody:
+        description: Tag's information
+        content: 
+          application/json:
+            schema:
+              $ref: "#/components/schemas/tag"
+      responses:
+        '201':
+          description: Tag has been added successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/tag"
+    get:
+      tags:
+        - "tags"
+      parameters:
+        - in: query
+          name: free-query
+          schema:
+            type: string          
+        - in: query
+          name: pagination-token
+          schema:
+            type: string
+            description: optional pagination token
+
+      description: Search tags with free text parameter
+      responses:
+        '200':
+          description: List of tags or empty list if nothing found for the query parameter
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/tag-list"
+
+  /tags/{tagId}:
+    get:
+      tags:
+        - "tags"
+      parameters:
+        - $ref:  "#/components/parameters/tagId"
+      responses:
+        '200':
+          description: Tag has been found in the system
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/tag"
+    delete:
+      tags:
+        - "tags"
+      parameters:
+        - $ref:  "#/components/parameters/tagId"
+      responses:
+        '200':
+          description: Tag has been successfully deleted
+
+        '404':
+          description: Given tag does not exist in the system
