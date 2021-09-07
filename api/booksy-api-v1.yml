@@ -484,46 +484,6 @@ paths:
         '404':
           description: Given book does not exist in the system
 
-  /books/authors/{authorId}:
-    get:
-      tags:
-        - "books"
-      parameters:
-        - $ref:  "#/components/parameters/authorId"
-        - in: query
-          name: pagination-token
-          schema:
-            type: string
-            description: optional pagination token
-
-      responses:
-        '200':
-          description: List of books found for the author
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/book-list"
-
-  /books/tags/{tagId}:
-    get:
-      tags:
-        - "books"
-      parameters:
-        - $ref:  "#/components/parameters/tagId"
-        - in: query
-          name: pagination-token
-          schema:
-            type: string
-            description: optional pagination token
-
-      responses:
-        '200':
-          description: List of books found for the tag
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/book-list"
-
   /videos/:    
     post:
       tags:
@@ -590,46 +550,6 @@ paths:
 
         '404':
           description: Given video does not exist in the system
-
-  /videos/authors/{authorId}:
-    get:
-      tags:
-        - "videos"
-      parameters:
-        - $ref:  "#/components/parameters/authorId"
-        - in: query
-          name: pagination-token
-          schema:
-            type: string
-            description: optional pagination token
-
-      responses:
-        '200':
-          description: List of videos found for the author
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/video-list"
-
-  /videos/tags/{tagId}:
-    get:
-      tags:
-        - "videos"
-      parameters:
-        - $ref:  "#/components/parameters/tagId"
-        - in: query
-          name: pagination-token
-          schema:
-            type: string
-            description: optional pagination token
-
-      responses:
-        '200':
-          description: List of videos found for the tag
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/video-list"
   
   /authors/:    
     post:
@@ -697,6 +617,46 @@ paths:
         '404':
           description: Given author does not exist in the system
 
+  /authors/{authorId}/books/:
+    get:
+      tags:
+        - "authors"
+      parameters:
+        - $ref:  "#/components/parameters/authorId"
+        - in: query
+          name: pagination-token
+          schema:
+            type: string
+            description: optional pagination token
+
+      responses:
+        '200':
+          description: List of books found for the author
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/book-list"
+
+  /authors/{authorId}/videos/:
+    get:
+      tags:
+        - "authors"
+      parameters:
+        - $ref:  "#/components/parameters/authorId"
+        - in: query
+          name: pagination-token
+          schema:
+            type: string
+            description: optional pagination token
+
+      responses:
+        '200':
+          description: List of videos found for the author
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/video-list"
+
   /tags/:    
     post:
       tags:
@@ -762,3 +722,43 @@ paths:
 
         '404':
           description: Given tag does not exist in the system
+
+  /tags/{tagId}/books/:
+    get:
+      tags:
+        - "tags"
+      parameters:
+        - $ref:  "#/components/parameters/tagId"
+        - in: query
+          name: pagination-token
+          schema:
+            type: string
+            description: optional pagination token
+
+      responses:
+        '200':
+          description: List of books found for the tag
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/book-list"
+  
+  /tags/{tagId}/videos/:
+    get:
+      tags:
+        - "tags"
+      parameters:
+        - $ref:  "#/components/parameters/tagId"
+        - in: query
+          name: pagination-token
+          schema:
+            type: string
+            description: optional pagination token
+
+      responses:
+        '200':
+          description: List of videos found for the tag
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/video-list"                
