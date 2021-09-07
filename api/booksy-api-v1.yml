@@ -462,6 +462,26 @@ components:
           type: string
           description: pagination token
 
+    note:
+      type: object
+      description: Text note for an item
+      required:
+        - type
+        - text
+        - timestamp
+      properties:          
+        type:
+          type: string
+          description: type of the note - NOTE, QUOTE
+          example: NOTE
+        text:
+          type: string
+          description: the text of the note
+          example: found on twitter
+        timestamp:
+          type: string
+          description: timestamp of the note
+
 paths:
   /books/:    
     post:

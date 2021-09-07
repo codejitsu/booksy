@@ -43,9 +43,10 @@
 | Users       | | *Look up items by tag* | tag ID (provided by user) |  List of materials by type | Search items by tag |✅| GET /books,videos/tags/1acdbf6f-05ac-45a7-9ddd-6f392e06079a
 | Users       | **Import materials** | *External search with free query* | Free query (provided by user), service name (provided by user) |  Matching materials found on external service | Find items on external service || GET /services/google/?free-query=text
 | Users       | | External retrieval by ID | ID (provided by user), service name (provided by user) |  Matching material found on external service | Read item from external service || GET /services/google/3305fa5a-f70a-4dd2-aebc-02b8b9a82bea
-| Users       | **Manage quotes** | *Add quote* | Collection, item, quote | Created quote | Add quote from item || POST /collections/1acdbf6f-05ac-45a7-9ddd-6f392e06079a/books,e-books,videos/ee09dc1b-3b8c-467b-a4d0-b985f5622bc1/quotes
-| Users       |  | *Get quotes* | Collection, item | List of quotes | List quotes || GET /collections/1acdbf6f-05ac-45a7-9ddd-6f392e06079a/books,e-books,videos/ee09dc1b-3b8c-467b-a4d0-b985f5622bc1/quotes
-| Users       |  | *Delete quotes* | Collection, item, quote ID | Deleted quote | Delete quote || DELETE /collections/1acdbf6f-05ac-45a7-9ddd-6f392e06079a/books,e-books,videos/ee09dc1b-3b8c-467b-a4d0-b985f5622bc1/quotes/ee09dc1b-3b8c-467b-a4d0-b985f5622bc1
+| Users       | **Manage notes** | *Add note* | Item, note | Created note | Add note to item || POST /books,videos/ee09dc1b-3b8c-467b-a4d0-b985f5622bc1/notes
+| Users       |  | *Get note* | Item, note ID | Note | Get note || GET /books,videos/ee09dc1b-3b8c-467b-a4d0-b985f5622bc1/notes/ee09dc1b-3b8c-467b-a4d0-b985f5622bc1
+| Users       |  | *Get all notes* | Item | List of notes | List notes || GET /books,videos/ee09dc1b-3b8c-467b-a4d0-b985f5622bc1/notes
+| Users       |  | *Delete notes* | Item, note ID | Deleted note | Delete note || DELETE /books,videos/ee09dc1b-3b8c-467b-a4d0-b985f5622bc1/notes/ee09dc1b-3b8c-467b-a4d0-b985f5622bc1
 | Users       | **Manage borrowed items** | *Borrow item* | Item ID| Borrowed item | Borrow item |✅| PATCH /books,videos/1acdbf6f-05ac-45a7-9ddd-6f392e06079a/
 | Users       |  | *Return borrowed item* | Item ID | Returned item | Return item |✅| PATCH /books,videos/1acdbf6f-05ac-45a7-9ddd-6f392e06079a/
 | Users       | **Manage authors** | *Add new author* | Author data (provided by user) | New author | Add new author |✅| POST /authors
