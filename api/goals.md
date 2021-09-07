@@ -46,8 +46,8 @@
 | Users       | **Manage quotes** | *Add quote* | Collection, item, quote | Created quote | Add quote from item || POST /collections/1acdbf6f-05ac-45a7-9ddd-6f392e06079a/books,e-books,videos/ee09dc1b-3b8c-467b-a4d0-b985f5622bc1/quotes
 | Users       |  | *Get quotes* | Collection, item | List of quotes | List quotes || GET /collections/1acdbf6f-05ac-45a7-9ddd-6f392e06079a/books,e-books,videos/ee09dc1b-3b8c-467b-a4d0-b985f5622bc1/quotes
 | Users       |  | *Delete quotes* | Collection, item, quote ID | Deleted quote | Delete quote || DELETE /collections/1acdbf6f-05ac-45a7-9ddd-6f392e06079a/books,e-books,videos/ee09dc1b-3b8c-467b-a4d0-b985f5622bc1/quotes/ee09dc1b-3b8c-467b-a4d0-b985f5622bc1
-| Users       | **Manage borrowed items** | *Borrow item* | Collection, item, free text for whom the item borrowed to | Borrowed item | Borrow item || PATCH /collections/1acdbf6f-05ac-45a7-9ddd-6f392e06079a/books/ee09dc1b-3b8c-467b-a4d0-b985f5622bc1
-| Users       |  | *Return borrowed item* | Collection, item | Returned item | Return item || PATCH /collections/1acdbf6f-05ac-45a7-9ddd-6f392e06079a/books/ee09dc1b-3b8c-467b-a4d0-b985f5622bc1
+| Users       | **Manage borrowed items** | *Borrow item* | Item ID| Borrowed item | Borrow item |✅| PATCH /books,videos/1acdbf6f-05ac-45a7-9ddd-6f392e06079a/
+| Users       |  | *Return borrowed item* | Item ID | Returned item | Return item |✅| PATCH /books,videos/1acdbf6f-05ac-45a7-9ddd-6f392e06079a/
 | Users       | **Manage authors** | *Add new author* | Author data (provided by user) | New author | Add new author |✅| POST /authors
 | Users       | | *Get author* | Author ID (provided by user) | Author details | Get author |✅| GET /authors/1acdbf6f-05ac-45a7-9ddd-6f392e06079a
 | Users       | | *Delete author* | Author ID (provided by user) | Deleted author | Delete author |✅| DELETE /authors/1acdbf6f-05ac-45a7-9ddd-6f392e06079a

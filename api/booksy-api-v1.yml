@@ -40,6 +40,27 @@ components:
         type: string
 
   schemas:
+    update:
+      type: object
+      description: Update on an object
+      required:
+        - operation
+        - value
+        - path
+      properties:
+        operation:
+          type: string
+          description: One of ADD, DELETE, REPLACE
+          example: REPLACE
+        value:
+          type: string
+          description: optional new value  
+          example: "true"
+        path:
+          type: string
+          description: JSON path to the property which is about to be modified
+          example: /borrowed
+
     book:
       type: object    
       description: A book
@@ -190,6 +211,18 @@ components:
         next-token:
           type: string
           description: pagination token
+
+    book-update:
+      type: object
+      description: Book update info
+      required:
+        - updates
+      properties:
+        updates:
+          type: array
+          description: single book modification
+          items:
+            $ref: "#/components/schemas/update"
 
     video:
       type: object    
@@ -342,6 +375,18 @@ components:
           type: string
           description: pagination token
 
+    video-update:
+      type: object
+      description: Video update info
+      required:
+        - updates
+      properties:
+        updates:
+          type: array
+          description: single video modification
+          items:
+            $ref: "#/components/schemas/update"
+
     author:
       type: object    
       description: An author
@@ -484,6 +529,24 @@ paths:
         '404':
           description: Given book does not exist in the system
 
+    patch:
+      tags:
+        - "books"
+      parameters:
+        - $ref:  "#/components/parameters/bookId"
+      requestBody:
+        description: Book's update info. This endpoint can be used to borrow books.
+        content: 
+          application/json:
+            schema:
+              $ref: "#/components/schemas/book-update"
+      responses:
+        '201':
+          description: Book has been successfully updated
+
+        '404':
+          description: Given book does not exist in the system
+
   /videos/:    
     post:
       tags:
@@ -551,6 +614,24 @@ paths:
         '404':
           description: Given video does not exist in the system
   
+    patch:
+      tags:
+        - "videos"
+      parameters:
+        - $ref:  "#/components/parameters/videoId"
+      requestBody:
+        description: Video's update info. This endpoint can be used to borrow video materials.
+        content: 
+          application/json:
+            schema:
+              $ref: "#/components/schemas/video-update"
+      responses:
+        '201':
+          description: Video has been successfully updated
+
+        '404':
+          description: Given video does not exist in the system
+
   /authors/:    
     post:
       tags:
