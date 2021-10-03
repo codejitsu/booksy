@@ -39,6 +39,14 @@ components:
       schema:
         type: string
 
+    noteId:
+      name: noteId
+      in: path
+      required: true
+      description: Note's Id (GUID)
+      schema:
+        type: string
+
   schemas:
     update:
       type: object
@@ -59,7 +67,7 @@ components:
         path:
           type: string
           description: JSON path to the property which is about to be modified
-          example: /borrowed
+          example: $loan/borrowed
 
     book:
       type: object    
@@ -190,7 +198,21 @@ components:
         self:
           type: string
           description: Link to the book in the system
-          example: http://www.booksy.com/api/v1/books/523d786d-7888-4ff1-9cc2-5efa37b2d6c7          
+          example: http://www.booksy.com/api/v1/books/523d786d-7888-4ff1-9cc2-5efa37b2d6c7
+        loan:
+          type: object
+          properties:
+            borrowed:
+              type: boolean
+              example: true
+              description: flag is true, when this book has been borrowed to someone
+            borrowDate:
+              type: string
+              example: 2021-08-19  
+            borrowNote:
+              type: string
+              example: borrowed to Alex
+              description: short note on this borrowed item  
 
     book-list:
       type: object
@@ -427,6 +449,63 @@ components:
           type: string
           description: pagination token
 
+    loan-record:
+      type: object
+      description: Loan record
+      required:
+        - borrowDate
+        - borrowTo
+        - borrowNote
+        - returnDate
+        - returned
+        - borrowed
+      properties:          
+        borrowDate:
+          type: string
+          description: borrow date
+          example: 2021-08-21
+        borrowTo:
+          type: string
+          description: name of person this item is borrowed to
+          example: Alex
+        borrowNote:
+          type: string
+          description: free text note on this record
+          example: borrowed to Alex for his exam preparation
+        returnDate:
+          type: string
+          description: date this item is returned back
+          example: 2021-09-01 
+        returned:
+          type: boolean
+          example: false
+          description: if true, item has been returned back
+        borrowed:
+          type: boolean
+          example: true
+          description: if true, item is being borrowed to someone
+
+    loan-history:
+      type: object
+      description: Container of loan records
+      required:
+        - items
+        - total
+        - next-token
+      properties:          
+        items:
+          type: array
+          description: current page of loan records
+          items:
+            $ref: "#/components/schemas/loan-record"
+        total:
+          type: integer
+          description: the total number of authors in resultset
+          example: 4
+        next-token:
+          type: string
+          description: pagination token
+
     tag:
       type: object    
       description: A tag
@@ -481,6 +560,30 @@ components:
         timestamp:
           type: string
           description: timestamp of the note
+        self:
+          type: string
+          description: URL to the note
+          example: /books/ee09dc1b-3b8c-467b-a4d0-b985f5622bc1/notes/ee09dc1b-3b8c-467b-a4d0-b985f5622bc1  
+
+    note-list:
+      type: object
+      description: Container of notes
+      required:
+        - items
+        - total
+        - next-token
+      properties:          
+        items:
+          type: array
+          description: current page of notes
+          items:
+            $ref: "#/components/schemas/note"
+        total:
+          type: integer
+          description: the total number of notes in resultset
+        next-token:
+          type: string
+          description: pagination token
 
 paths:
   /books/:    
@@ -567,6 +670,88 @@ paths:
         '404':
           description: Given book does not exist in the system
 
+  /books/{bookId}/loan-history:
+    get:
+      tags:
+        - "books"
+      parameters:
+        - $ref:  "#/components/parameters/bookId"
+      responses:
+        '200':
+          description: Book has been found in the library, return it's loan history
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/loan-history"
+
+  /books/{bookId}/notes:    
+    post:
+      tags:
+        - "books"
+      parameters:
+        - $ref:  "#/components/parameters/bookId"
+      description: Add a note to the book
+      requestBody:
+        description: Book's note as text
+        content: 
+          application/json:
+            schema:
+              $ref: "#/components/schemas/note"
+      responses:
+        '201':
+          description: Note for given book has been created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/note"
+    get:
+      tags:
+        - "books"
+      parameters:
+        - in: query
+          name: free-query
+          schema:
+            type: string          
+        - in: query
+          name: pagination-token
+          schema:
+            type: string
+            description: optional pagination token
+      description: Search book notes with free text parameter
+      responses:
+        '200':
+          description: List of book notes or empty list if nothing found for the query parameter
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/note-list"
+
+  /books/{bookId}/notes/{noteId}:    
+    get:
+      tags:
+        - "books"
+      parameters:
+        - $ref:  "#/components/parameters/bookId"
+        - $ref:  "#/components/parameters/noteId"
+      description: Get book note
+      responses:
+        '200':
+          description: Book note
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/note"
+    delete:
+      tags:
+        - "books"
+      parameters:
+        - $ref:  "#/components/parameters/bookId"
+        - $ref:  "#/components/parameters/noteId"
+      description: Delete book note
+      responses:
+        '200':
+          description: Book note has been deleted
+
   /videos/:    
     post:
       tags:
@@ -651,6 +836,88 @@ paths:
 
         '404':
           description: Given video does not exist in the system
+
+  /videos/{videoId}/loan-history:
+    get:
+      tags:
+        - "videos"
+      parameters:
+        - $ref:  "#/components/parameters/videoId"
+      responses:
+        '200':
+          description: Video has been found in the library, return it's loan history
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/loan-history"
+
+  /videos/{videoId}/notes:    
+    post:
+      tags:
+        - "videos"
+      parameters:
+        - $ref:  "#/components/parameters/videoId"
+      description: Add a note to the video
+      requestBody:
+        description: Video's note as text
+        content: 
+          application/json:
+            schema:
+              $ref: "#/components/schemas/note"
+      responses:
+        '201':
+          description: Note for given video has been created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/note"
+    get:
+      tags:
+        - "videos"
+      parameters:
+        - in: query
+          name: free-query
+          schema:
+            type: string          
+        - in: query
+          name: pagination-token
+          schema:
+            type: string
+            description: optional pagination token
+      description: Search video notes with free text parameter
+      responses:
+        '200':
+          description: List of video notes or empty list if nothing found for the query parameter
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/note-list"
+
+  /videos/{videoId}/notes/{noteId}:    
+    get:
+      tags:
+        - "videos"
+      parameters:
+        - $ref:  "#/components/parameters/videoId"
+        - $ref:  "#/components/parameters/noteId"
+      description: Get video note
+      responses:
+        '200':
+          description: Video note
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/note"
+    delete:
+      tags:
+        - "videos"
+      parameters:
+        - $ref:  "#/components/parameters/videoId"
+        - $ref:  "#/components/parameters/noteId"
+      description: Delete video note
+      responses:
+        '200':
+          description: Video note has been deleted
 
   /authors/:    
     post:
