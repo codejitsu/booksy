@@ -63,11 +63,11 @@ components:
         value:
           type: string
           description: optional new value  
-          example: "true"
+          example: "false"
         path:
           type: string
           description: JSON path to the property which is about to be modified
-          example: $loan/borrowed
+          example: $loan/loaned
 
     book:
       type: object    
@@ -202,17 +202,21 @@ components:
         loan:
           type: object
           properties:
-            borrowed:
+            loaned:
               type: boolean
               example: true
               description: flag is true, when this book has been borrowed to someone
-            borrowDate:
+            loanDate:
               type: string
               example: 2021-08-19  
-            borrowNote:
+            loanNote:
               type: string
               example: borrowed to Alex
               description: short note on this borrowed item  
+        note:
+          type: string
+          description: the latest note on the book
+          example: great book found on twitter
 
     book-list:
       type: object
@@ -376,6 +380,24 @@ components:
           type: string
           description: Link to the video in the system
           example: http://www.booksy.com/api/v1/videos/523d786d-7888-4ff1-9cc2-5efa37b2d6c7          
+        loan:
+          type: object
+          properties:
+            loaned:
+              type: boolean
+              example: true
+              description: flag is true, when this video has been borrowed to someone
+            loanDate:
+              type: string
+              example: 2021-08-19  
+            loanNote:
+              type: string
+              example: borrowed to Alex
+              description: short note on this borrowed item  
+        note:
+          type: string
+          description: the latest note on the video
+          example: great video found on twitter
 
     video-list:
       type: object
@@ -453,25 +475,25 @@ components:
       type: object
       description: Loan record
       required:
-        - borrowDate
-        - borrowTo
-        - borrowNote
+        - loanDate
+        - loanTo
+        - loanNote
         - returnDate
         - returned
-        - borrowed
+        - loaned
       properties:          
-        borrowDate:
+        loanDate:
           type: string
-          description: borrow date
+          description: loan date
           example: 2021-08-21
-        borrowTo:
+        loanTo:
           type: string
-          description: name of person this item is borrowed to
+          description: name of person this item is loaned to
           example: Alex
-        borrowNote:
+        loanNote:
           type: string
           description: free text note on this record
-          example: borrowed to Alex for his exam preparation
+          example: loaned to Alex for his exam preparation
         returnDate:
           type: string
           description: date this item is returned back
@@ -480,10 +502,10 @@ components:
           type: boolean
           example: false
           description: if true, item has been returned back
-        borrowed:
+        loaned:
           type: boolean
           example: true
-          description: if true, item is being borrowed to someone
+          description: if true, item is being loaned to someone
 
     loan-history:
       type: object
@@ -500,7 +522,7 @@ components:
             $ref: "#/components/schemas/loan-record"
         total:
           type: integer
-          description: the total number of authors in resultset
+          description: the total number of loan-records in resultset
           example: 4
         next-token:
           type: string
